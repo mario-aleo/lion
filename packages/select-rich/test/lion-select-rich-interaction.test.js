@@ -114,6 +114,14 @@ describe('lion-select-rich interactions', () => {
       await el.updateComplete;
       expect(el.checkedValue).to.equal(10);
     });
+
+    it('can not be opened via click if disabled', async () => {
+      const el = await fixture(html`
+        <lion-select-rich disabled> </lion-select-rich>
+      `);
+      el._invokerNode.click();
+      expect(el.opened).to.be.false;
+    });
   });
 
   describe('Keyboard navigation', () => {

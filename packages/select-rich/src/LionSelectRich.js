@@ -138,7 +138,9 @@ export class LionSelectRich extends InteractionStateMixin(
 
     /* for _invokerNode */
     this.__invokerOnClick = () => {
-      this.toggle();
+      if (!this.disabled) {
+        this.toggle();
+      }
     };
     this._invokerNode.addEventListener('click', this.__invokerOnClick);
 
@@ -162,14 +164,15 @@ export class LionSelectRich extends InteractionStateMixin(
       }
     }
 
-    // if (changedProps.has('disabled')) {
-    //   if (this.disabled) {
-    //     this.__originalTabIndex = this.tabIndex;
-    //     this.tabIndex = -1;
-    //   } else {
-    //     this.tabIndex = this.__originalTabIndex;
-    //   }
-    // }
+    if (changedProps.has('disabled')) {
+      // TODO: improve implementation -> property, seprate Mixin?
+      if (this.disabled) {
+        this.__originalTabIndex = this.tabIndex;
+        this.tabIndex = -1;
+      } else {
+        this.tabIndex = this.__originalTabIndex;
+      }
+    }
   }
 
   toggle() {
@@ -274,6 +277,8 @@ export class LionSelectRich extends InteractionStateMixin(
     this.addEventListener('keydown', this.__boundOnKeyDown);
 
     this.__setupOverlay();
+    this.__userTabIndex = this.tabIndex;
+
     this._invokerNode.id = `invoker-${this._inputId}`;
     this._invokerNode.setAttribute('aria-haspopup', 'listbox');
 
