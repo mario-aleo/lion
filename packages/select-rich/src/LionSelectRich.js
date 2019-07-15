@@ -484,12 +484,7 @@ export class LionSelectRich extends InteractionStateMixin(
       return;
     }
 
-    const keys = ['Enter', ' ', 'Escape', 'Tab', 'ArrowUp', 'ArrowDown'];
     const { key } = ev;
-    if (!keys.includes(key)) {
-      return;
-    }
-
     switch (key) {
       case 'Enter':
       case ' ':

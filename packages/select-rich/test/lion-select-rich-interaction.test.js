@@ -91,6 +91,27 @@ describe('lion-select-rich interactions', () => {
         { value: 20, checked: true },
       ]);
     });
+
+    it('has an activeIndex', async () => {
+      const el = await fixture(html`
+        <lion-select-rich>
+          <lion-options slot="input">
+            <lion-option .choiceValue=${10}>Item 1</lion-option>
+            <lion-option .choiceValue=${20}>Item 2</lion-option>
+          </lion-options>
+        </lion-select-rich>
+      `);
+      // TODO: special registerComplete promise
+      await aTimeout();
+
+      expect(el.activeIndex).to.equal(0);
+
+      el.querySelectorAll('lion-option')[1].active = true;
+      await el.updateComplete;
+
+      expect(el.querySelectorAll('lion-option')[0].active).to.be.false;
+      expect(el.activeIndex).to.equal(1);
+    });
   });
 
   describe('Disabled', () => {
@@ -125,105 +146,6 @@ describe('lion-select-rich interactions', () => {
   });
 
   describe('Keyboard navigation', () => {
-    it('has an activeIndex', async () => {
-      const el = await fixture(html`
-        <lion-select-rich>
-          <lion-options slot="input">
-            <lion-option .choiceValue=${10}>Item 1</lion-option>
-            <lion-option .choiceValue=${20}>Item 2</lion-option>
-          </lion-options>
-        </lion-select-rich>
-      `);
-      // TODO: special registerComplete promise
-      await aTimeout();
-
-      expect(el.activeIndex).to.equal(0);
-
-      el.querySelectorAll('lion-option')[1].active = true;
-      await el.updateComplete;
-
-      expect(el.querySelectorAll('lion-option')[0].active).to.be.false;
-      expect(el.activeIndex).to.equal(1);
-    });
-
-    // TODO: nice to have
-    it.skip('selects a value with single [character] key', async () => {
-      const el = await fixture(html`
-        <lion-select-rich>
-          <lion-options slot="input" name="foo">
-            <lion-option .choiceValue=${'a'}>A</lion-option>
-            <lion-option .choiceValue=${'b'}>B</lion-option>
-            <lion-option .choiceValue=${'c'}>C</lion-option>
-          </lion-options>
-        </lion-select-rich>
-      `);
-      expect(el.choiceValue).to.equal('a');
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'C' }));
-      await el.updateComplete;
-      expect(el.choiceValue).to.equal('c');
-    });
-
-    it.skip('selects a value with multiple [character] keys', async () => {
-      const el = await fixture(html`
-        <lion-select-rich>
-          <lion-options slot="input" name="foo">
-            <lion-option .choiceValue=${'bar'}>Bar</lion-option>
-            <lion-option .choiceValue=${'far'}>Far</lion-option>
-            <lion-option .choiceValue=${'foo'}>Foo</lion-option>
-          </lion-options>
-        </lion-select-rich>
-      `);
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'F' }));
-      await el.updateComplete;
-      expect(el.choiceValue).to.equal('far');
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'O' }));
-      await el.updateComplete;
-      expect(el.choiceValue).to.equal('foo');
-    });
-  });
-
-  describe('Keyboard navigation Windows', () => {
-    it('navigates through list with [ArrowDown] [ArrowDown] keys activates and checks the option', async () => {
-      function expectOnlyGivenOneOptionToBeChecked(options, selectedIndex) {
-        options.forEach((option, i) => {
-          if (i === selectedIndex) {
-            expect(option.checked).to.be.true;
-          } else {
-            expect(option.checked).to.be.false;
-          }
-        });
-      }
-
-      const el = await fixture(html`
-        <lion-select-rich>
-          <lion-options slot="input">
-            <lion-option .choiceValue=${10}>Item 1</lion-option>
-            <lion-option .choiceValue=${20}>Item 2</lion-option>
-            <lion-option .choiceValue=${30}>Item 3</lion-option>
-          </lion-options>
-        </lion-select-rich>
-      `);
-      // TODO: special registerComplete promise
-      await aTimeout();
-
-      const options = Array.from(el.querySelectorAll('lion-option'));
-
-      expect(el.activeIndex).to.equal(0);
-      expect(el.checkedIndex).to.equal(0);
-      expectOnlyGivenOneOptionToBeChecked(options, 0);
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-      await el.updateComplete;
-      expect(el.activeIndex).to.equal(1);
-      expect(el.checkedIndex).to.equal(1);
-      expectOnlyGivenOneOptionToBeChecked(options, 1);
-
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-      await el.updateComplete;
-      expect(el.activeIndex).to.equal(0);
-      expect(el.checkedIndex).to.equal(0);
-      expectOnlyGivenOneOptionToBeChecked(options, 0);
-    });
-
     it('does not allow to navigate above the first or below the last option', async () => {
       const el = await fixture(html`
         <lion-select-rich>
@@ -263,10 +185,107 @@ describe('lion-select-rich interactions', () => {
       await el.updateComplete;
       expect(el.checkedValue).to.equal(40);
     });
+
+    // TODO: nice to have
+    it.skip('selects a value with single [character] key', async () => {
+      const el = await fixture(html`
+        <lion-select-rich>
+          <lion-options slot="input" name="foo">
+            <lion-option .choiceValue=${'a'}>A</lion-option>
+            <lion-option .choiceValue=${'b'}>B</lion-option>
+            <lion-option .choiceValue=${'c'}>C</lion-option>
+          </lion-options>
+        </lion-select-rich>
+      `);
+      expect(el.choiceValue).to.equal('a');
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'C' }));
+      await el.updateComplete;
+      expect(el.choiceValue).to.equal('c');
+    });
+
+    it.skip('selects a value with multiple [character] keys', async () => {
+      const el = await fixture(html`
+        <lion-select-rich>
+          <lion-options slot="input" name="foo">
+            <lion-option .choiceValue=${'bar'}>Bar</lion-option>
+            <lion-option .choiceValue=${'far'}>Far</lion-option>
+            <lion-option .choiceValue=${'foo'}>Foo</lion-option>
+          </lion-options>
+        </lion-select-rich>
+      `);
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'F' }));
+      await el.updateComplete;
+      expect(el.choiceValue).to.equal('far');
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'O' }));
+      await el.updateComplete;
+      expect(el.choiceValue).to.equal('foo');
+    });
+  });
+
+  describe('Keyboard navigation Windows', () => {
+    it('navigates through list with [ArrowDown] [ArrowUp] keys activates and checks the option', async () => {
+      function expectOnlyGivenOneOptionToBeChecked(options, selectedIndex) {
+        options.forEach((option, i) => {
+          if (i === selectedIndex) {
+            expect(option.checked).to.be.true;
+          } else {
+            expect(option.checked).to.be.false;
+          }
+        });
+      }
+
+      const el = await fixture(html`
+        <lion-select-rich>
+          <lion-options slot="input">
+            <lion-option .choiceValue=${10}>Item 1</lion-option>
+            <lion-option .choiceValue=${20}>Item 2</lion-option>
+            <lion-option .choiceValue=${30}>Item 3</lion-option>
+          </lion-options>
+        </lion-select-rich>
+      `);
+      // TODO: special registerComplete promise
+      await aTimeout();
+
+      const options = Array.from(el.querySelectorAll('lion-option'));
+      expect(el.activeIndex).to.equal(0);
+      expect(el.checkedIndex).to.equal(0);
+      expectOnlyGivenOneOptionToBeChecked(options, 0);
+
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      await el.updateComplete;
+      expect(el.activeIndex).to.equal(1);
+      expect(el.checkedIndex).to.equal(1);
+      expectOnlyGivenOneOptionToBeChecked(options, 1);
+
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      await el.updateComplete;
+      expect(el.activeIndex).to.equal(0);
+      expect(el.checkedIndex).to.equal(0);
+      expectOnlyGivenOneOptionToBeChecked(options, 0);
+    });
+
+    it('skips disabled options while navigating through list with [ArrowDown] [ArrowUp] keys', async () => {
+      const el = await fixture(html`
+        <lion-select-rich>
+          <lion-options slot="input">
+            <lion-option .choiceValue=${10}>Item 1</lion-option>
+            <lion-option .choiceValue=${20} disabled>Item 2</lion-option>
+            <lion-option .choiceValue=${30}>Item 3</lion-option>
+          </lion-options>
+        </lion-select-rich>
+      `);
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      expect(el.checkedIndex).to.equal(2);
+      expect(el.activeIndex).to.equal(2);
+
+      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      expect(el.checkedIndex).to.equal(0);
+      expect(el.activeIndex).to.equal(0);
+    });
   });
 
   describe('Keyboard navigation Mac', () => {
-    it('navigates through list with [ArrowDown] [ArrowDown] keys activates the option', async () => {
+    it('navigates through list with [ArrowDown] [ArrowUp] keys activates the option', async () => {
       const el = await fixture(html`
         <lion-select-rich opened interaction-mode="mac">
           <lion-options slot="input">
@@ -281,6 +300,7 @@ describe('lion-select-rich interactions', () => {
 
       expect(el.activeIndex).to.equal(0);
       expect(el.checkedIndex).to.equal(0);
+
       el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       await el.updateComplete;
       expect(el.activeIndex).to.equal(1);
