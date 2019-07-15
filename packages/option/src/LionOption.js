@@ -101,13 +101,19 @@ export class LionOption extends ChoiceInputMixin(LitElement) {
 
   __registerEventListener() {
     this.__onClick = () => {
-      this.checked = true;
+      if (!this.disabled) {
+        this.checked = true;
+      }
     };
     this.__onMouseEnter = () => {
-      this.active = true;
+      if (!this.disabled) {
+        this.active = true;
+      }
     };
     this.__onMouseLeave = () => {
-      this.active = false;
+      if (!this.disabled) {
+        this.active = false;
+      }
     };
     this.addEventListener('click', this.__onClick);
     this.addEventListener('mouseenter', this.__onMouseEnter);

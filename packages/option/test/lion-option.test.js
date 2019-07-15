@@ -81,7 +81,7 @@ describe('lion-option', () => {
       expect(el.hasAttribute('active')).to.be.false;
     });
 
-    it('on [mouseenter] it becomes active', async () => {
+    it('does become active on [mouseenter]', async () => {
       const el = await fixture(html`
         <lion-option .choiceValue=${10}></lion-option>
       `);
@@ -90,7 +90,7 @@ describe('lion-option', () => {
       expect(el.active).to.be.true;
     });
 
-    it('on [mouseleave] it becomes un-active', async () => {
+    it('does become un-active on [mouseleave]', async () => {
       const el = await fixture(html`
         <lion-option .choiceValue=${10} active></lion-option>
       `);
@@ -99,7 +99,7 @@ describe('lion-option', () => {
       expect(el.active).to.be.false;
     });
 
-    it('on [click] it becomes checked', async () => {
+    it('does become checked on [click]', async () => {
       const el = await fixture(html`
         <lion-option .choiceValue=${10}></lion-option>
       `);
@@ -117,6 +117,36 @@ describe('lion-option', () => {
       expect(activeSpy.callCount).to.equal(0);
       el.active = true;
       expect(activeSpy.callCount).to.equal(1);
+    });
+  });
+
+  describe('Disabled', () => {
+    it('does not becomes active on [mouseenter]', async () => {
+      const el = await fixture(html`
+        <lion-option .choiceValue=${10} disabled></lion-option>
+      `);
+      expect(el.active).to.be.false;
+      el.dispatchEvent(new Event('mouseenter'));
+      expect(el.active).to.be.false;
+    });
+
+    it('does not become checkend on [click]', async () => {
+      const el = await fixture(html`
+        <lion-option .choiceValue=${10} disabled></lion-option>
+      `);
+      expect(el.checked).to.be.false;
+      el.click();
+      await el.updateComplete;
+      expect(el.checked).to.be.false;
+    });
+
+    it('does not become un-active on [mouseleave]', async () => {
+      const el = await fixture(html`
+        <lion-option .choiceValue=${10} active disabled></lion-option>
+      `);
+      expect(el.active).to.be.true;
+      el.dispatchEvent(new Event('mouseleave'));
+      expect(el.active).to.be.true;
     });
   });
 });
