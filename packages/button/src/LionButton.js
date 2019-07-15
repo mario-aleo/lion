@@ -12,9 +12,13 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
         type: String,
         reflect: true,
       },
-      tabindex: {
-        type: Number,
+      // we us a property here as if we use the native tabIndex we can not set a default value
+      // in the constructor as it synchronously sets the attribute which is not allowed in the
+      // constructor phase
+      tabIndex: {
+        type: String,
         reflect: true,
+        attribute: 'tabindex',
       },
     };
   }
@@ -139,7 +143,8 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
     super();
     this.disabled = false;
     this.role = 'button';
-    this.tabindex = 0;
+    this.tabIndex = 0;
+    this.__keydownDelegationHandler = this.__keydownDelegationHandler.bind(this);
   }
 
   connectedCallback() {
@@ -206,10 +211,10 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
 
   __onDisabledChanged() {
     if (this.disabled) {
-      this.__originalTabIndex = this.tabindex;
-      this.tabindex = -1;
+      this.__originalTabIndex = this.tabIndex;
+      this.tabIndex = -1;
     } else {
-      this.tabindex = this.__originalTabIndex;
+      this.tabIndex = this.__originalTabIndex;
     }
   }
 }
