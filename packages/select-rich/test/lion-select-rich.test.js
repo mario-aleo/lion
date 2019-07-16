@@ -145,7 +145,7 @@ describe('lion-select-rich', () => {
           <lion-options slot="input"></lion-options>
         </lion-select-rich>
       `);
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
       await el.updateComplete;
       expect(el.opened).to.be.false;
     });
