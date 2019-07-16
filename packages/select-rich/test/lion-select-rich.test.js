@@ -134,7 +134,7 @@ describe('lion-select-rich', () => {
           <lion-options slot="input"></lion-options>
         </lion-select-rich>
       `);
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape' }));
       await el.updateComplete;
       expect(el.opened).to.be.false;
     });
@@ -145,7 +145,7 @@ describe('lion-select-rich', () => {
           <lion-options slot="input"></lion-options>
         </lion-select-rich>
       `);
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'Tab' }));
       await el.updateComplete;
       expect(el.opened).to.be.false;
     });
@@ -178,13 +178,13 @@ describe('lion-select-rich', () => {
   });
 
   describe('Keyboard navigation Windows', () => {
-    it('closes the listbox with [Enter] key via click handler once opened', async () => {
+    it('closes the listbox with [Enter] key once opened', async () => {
       const el = await fixture(html`
         <lion-select-rich opened>
           <lion-options slot="input"></lion-options>
         </lion-select-rich>
       `);
-      el._invokerNode.click();
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
       await el.updateComplete;
       expect(el.opened).to.be.false;
     });
@@ -205,7 +205,7 @@ describe('lion-select-rich', () => {
       el.activeIndex = 1;
       expect(el.checkedIndex).to.equal(0);
 
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
       expect(el.opened).to.be.false;
       expect(el.checkedIndex).to.equal(1);
     });
@@ -216,7 +216,7 @@ describe('lion-select-rich', () => {
           <lion-options slot="input"></lion-options>
         </lion-select-rich>
       `);
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      el.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowUp' }));
       await el.updateComplete;
       expect(el.opened).to.be.true;
     });
@@ -227,7 +227,7 @@ describe('lion-select-rich', () => {
           <lion-options slot="input"></lion-options>
         </lion-select-rich>
       `);
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      el.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       await el.updateComplete;
       expect(el.opened).to.be.true;
     });

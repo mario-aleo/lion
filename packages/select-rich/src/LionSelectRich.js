@@ -450,6 +450,11 @@ export class LionSelectRich extends InteractionStateMixin(
     const { key } = ev;
 
     switch (key) {
+      case 'Escape':
+      case 'Tab':
+        ev.preventDefault();
+        this.opened = false;
+        break;
       case 'Enter':
       case ' ':
         ev.preventDefault();
@@ -488,25 +493,26 @@ export class LionSelectRich extends InteractionStateMixin(
       return;
     }
 
+    if (this.opened) {
+      return;
+    }
+
     const { key } = ev;
     switch (key) {
-      case 'Escape':
-      case 'Tab':
-        ev.preventDefault();
-        if (this.opened) {
-          this.opened = false;
-        }
-        break;
       case 'ArrowUp':
         ev.preventDefault();
         if (this.interactionMode === 'mac') {
           this.opened = true;
+        } else {
+          this.activeIndex -= 1;
         }
         break;
       case 'ArrowDown':
         ev.preventDefault();
         if (this.interactionMode === 'mac') {
           this.opened = true;
+        } else {
+          this.activeIndex += 1;
         }
         break;
       /* no default */

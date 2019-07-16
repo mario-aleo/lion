@@ -131,7 +131,7 @@ describe('lion-select-rich interactions', () => {
           </lion-options>
         </lion-select-rich>
       `);
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       await el.updateComplete;
       expect(el.checkedValue).to.equal(10);
     });
@@ -148,15 +148,15 @@ describe('lion-select-rich interactions', () => {
   describe('Keyboard navigation', () => {
     it('does not allow to navigate above the first or below the last option', async () => {
       const el = await fixture(html`
-        <lion-select-rich>
+        <lion-select-rich opened>
           <lion-options slot="input">
             <lion-option .choiceValue=${10}>Item 1</lion-option>
           </lion-options>
         </lion-select-rich>
       `);
       expect(() => {
-        el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-        el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+        el.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowUp' }));
+        el.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       }).to.not.throw();
       expect(el.checkedIndex).to.equal(0);
       expect(el.activeIndex).to.equal(0);
@@ -164,7 +164,7 @@ describe('lion-select-rich interactions', () => {
 
     it('navigates to first and last option with [Home] and [End] keys', async () => {
       const el = await fixture(html`
-        <lion-select-rich>
+        <lion-select-rich opened>
           <lion-options slot="input" name="foo">
             <lion-option .choiceValue=${10}>Item 1</lion-option>
             <lion-option .choiceValue=${20}>Item 2</lion-option>
@@ -177,11 +177,11 @@ describe('lion-select-rich interactions', () => {
       await aTimeout();
 
       expect(el.checkedValue).to.equal(30);
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'Home' }));
       await el.updateComplete;
       expect(el.checkedValue).to.equal(10);
 
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'End' }));
       await el.updateComplete;
       expect(el.checkedValue).to.equal(40);
     });
@@ -189,7 +189,7 @@ describe('lion-select-rich interactions', () => {
     // TODO: nice to have
     it.skip('selects a value with single [character] key', async () => {
       const el = await fixture(html`
-        <lion-select-rich>
+        <lion-select-rich opened>
           <lion-options slot="input" name="foo">
             <lion-option .choiceValue=${'a'}>A</lion-option>
             <lion-option .choiceValue=${'b'}>B</lion-option>
@@ -198,14 +198,14 @@ describe('lion-select-rich interactions', () => {
         </lion-select-rich>
       `);
       expect(el.choiceValue).to.equal('a');
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'C' }));
+      el.dispatchEvent(new KeyboardEvent('keyup', { key: 'C' }));
       await el.updateComplete;
       expect(el.choiceValue).to.equal('c');
     });
 
     it.skip('selects a value with multiple [character] keys', async () => {
       const el = await fixture(html`
-        <lion-select-rich>
+        <lion-select-rich opened>
           <lion-options slot="input" name="foo">
             <lion-option .choiceValue=${'bar'}>Bar</lion-option>
             <lion-option .choiceValue=${'far'}>Far</lion-option>
@@ -213,10 +213,10 @@ describe('lion-select-rich interactions', () => {
           </lion-options>
         </lion-select-rich>
       `);
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'F' }));
+      el.dispatchEvent(new KeyboardEvent('keyup', { key: 'F' }));
       await el.updateComplete;
       expect(el.choiceValue).to.equal('far');
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'O' }));
+      el.dispatchEvent(new KeyboardEvent('keyup', { key: 'O' }));
       await el.updateComplete;
       expect(el.choiceValue).to.equal('foo');
     });
@@ -235,7 +235,7 @@ describe('lion-select-rich interactions', () => {
       }
 
       const el = await fixture(html`
-        <lion-select-rich>
+        <lion-select-rich opened>
           <lion-options slot="input">
             <lion-option .choiceValue=${10}>Item 1</lion-option>
             <lion-option .choiceValue=${20}>Item 2</lion-option>
@@ -251,13 +251,13 @@ describe('lion-select-rich interactions', () => {
       expect(el.checkedIndex).to.equal(0);
       expectOnlyGivenOneOptionToBeChecked(options, 0);
 
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       await el.updateComplete;
       expect(el.activeIndex).to.equal(1);
       expect(el.checkedIndex).to.equal(1);
       expectOnlyGivenOneOptionToBeChecked(options, 1);
 
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowUp' }));
       await el.updateComplete;
       expect(el.activeIndex).to.equal(0);
       expect(el.checkedIndex).to.equal(0);
@@ -267,7 +267,7 @@ describe('lion-select-rich interactions', () => {
     // TODO: enable and make work
     it.skip('skips disabled options while navigating through list with [ArrowDown] [ArrowUp] keys', async () => {
       const el = await fixture(html`
-        <lion-select-rich>
+        <lion-select-rich opened>
           <lion-options slot="input">
             <lion-option .choiceValue=${10}>Item 1</lion-option>
             <lion-option .choiceValue=${20} disabled>Item 2</lion-option>
@@ -275,18 +275,18 @@ describe('lion-select-rich interactions', () => {
           </lion-options>
         </lion-select-rich>
       `);
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       expect(el.checkedIndex).to.equal(2);
       expect(el.activeIndex).to.equal(2);
 
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowUp' }));
       expect(el.checkedIndex).to.equal(0);
       expect(el.activeIndex).to.equal(0);
     });
   });
 
   describe('Keyboard navigation Mac', () => {
-    it('navigates through list with [ArrowDown] [ArrowUp] keys activates the option', async () => {
+    it('navigates through open list with [ArrowDown] [ArrowUp] keys activates the option', async () => {
       const el = await fixture(html`
         <lion-select-rich opened interaction-mode="mac">
           <lion-options slot="input">
@@ -302,12 +302,12 @@ describe('lion-select-rich interactions', () => {
       expect(el.activeIndex).to.equal(0);
       expect(el.checkedIndex).to.equal(0);
 
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       await el.updateComplete;
       expect(el.activeIndex).to.equal(1);
       expect(el.checkedIndex).to.equal(0);
 
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowUp' }));
       await el.updateComplete;
       expect(el.activeIndex).to.equal(0);
       expect(el.checkedIndex).to.equal(0);
@@ -332,7 +332,7 @@ describe('lion-select-rich interactions', () => {
           </lion-options>
         </lion-select-rich>
       `);
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       await el.updateComplete;
       expect(el.choiceValue).to.equal(10);
     });
@@ -514,7 +514,7 @@ describe('lion-select-rich interactions', () => {
         </lion-select-rich>
       `);
       expect(el._listboxNode.getAttribute('aria-activedescendant')).to.equal('first');
-      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowDown' }));
       expect(el._listboxNode.getAttribute('aria-activedescendant')).to.equal('second');
     });
 
