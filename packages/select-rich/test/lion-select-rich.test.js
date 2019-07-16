@@ -94,6 +94,23 @@ describe('lion-select-rich', () => {
       expect(document.activeElement === el._listboxNode).to.be.false;
       expect(document.activeElement === el._invokerNode).to.be.true;
     });
+
+    it('opens the listbox with checked option as active', async () => {
+      const el = await fixture(html`
+        <lion-select-rich>
+          <lion-options slot="input">
+            <lion-option .choiceValue=${10}>Item 1</lion-option>
+            <lion-option .choiceValue=${20} checked>Item 2</lion-option>
+          </lion-options>
+        </lion-select-rich>
+      `);
+      el.opened = true;
+      await el.updateComplete;
+      const options = Array.from(el.querySelectorAll('lion-option'));
+
+      expect(options[1].active).to.be.true;
+      expect(options[1].checked).to.be.true;
+    });
   });
 
   describe('interaction-mode', () => {

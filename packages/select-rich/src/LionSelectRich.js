@@ -128,6 +128,9 @@ export class LionSelectRich extends InteractionStateMixin(
     /* for __overlay */
     this.__overlayOnShow = () => {
       this.opened = true;
+      if (this.checkedIndex) {
+        this.activeIndex = this.checkedIndex;
+      }
       this._listboxNode.focus();
     };
     this.__overalyOnHide = () => {
@@ -310,7 +313,10 @@ export class LionSelectRich extends InteractionStateMixin(
   }
 
   get checkedIndex() {
-    return this.modelValue.findIndex(el => el.value === this.checkedValue);
+    if (this.modelValue) {
+      return this.modelValue.findIndex(el => el.value === this.checkedValue);
+    }
+    return -1;
   }
 
   set checkedIndex(index) {
