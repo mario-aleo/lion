@@ -118,8 +118,8 @@ export class LionSelectRich extends InteractionStateMixin(
 
     this._listboxActiveDescendant = null;
 
-    this.__listboxOnKeyDown = this.__listboxOnKeyDown.bind(this);
-    this.__boundOnKeyDown = this.__onKeyDown.bind(this);
+    this.__listboxOnKeyUp = this.__listboxOnKeyUp.bind(this);
+    this.__onKeyUp = this.__onKeyUp.bind(this);
 
     this.__boundToggle = this.toggle.bind(this);
   }
@@ -274,7 +274,7 @@ export class LionSelectRich extends InteractionStateMixin(
 
     this.addEventListener('model-value-changed', this.__boundOnChildModelValueChanged);
 
-    this.addEventListener('keydown', this.__boundOnKeyDown);
+    this.addEventListener('keyup', this.__onKeyUp);
 
     this.__setupOverlay();
 
@@ -431,7 +431,7 @@ export class LionSelectRich extends InteractionStateMixin(
       this._listboxNode.addEventListener('click', () => {
         this.opened = false;
       });
-      this._listboxNode.addEventListener('keydown', this.__listboxOnKeyDown);
+      this._listboxNode.addEventListener('keyup', this.__listboxOnKeyUp);
     });
   }
 
@@ -442,7 +442,7 @@ export class LionSelectRich extends InteractionStateMixin(
    *
    * @param ev - the keydown event object
    */
-  __listboxOnKeyDown(ev) {
+  __listboxOnKeyUp(ev) {
     if (this.disabled) {
       return;
     }
@@ -483,7 +483,7 @@ export class LionSelectRich extends InteractionStateMixin(
     }
   }
 
-  __onKeyDown(ev) {
+  __onKeyUp(ev) {
     if (this.disabled) {
       return;
     }
