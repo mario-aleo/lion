@@ -128,9 +128,11 @@ export class LionSelectRich extends InteractionStateMixin(
     /* for __overlay */
     this.__overlayOnShow = () => {
       this.opened = true;
+      this._listboxNode.focus();
     };
     this.__overalyOnHide = () => {
       this.opened = false;
+      this._invokerNode.focus();
     };
 
     this.__overlay.addEventListener('show', this.__overlayOnShow);
@@ -167,10 +169,9 @@ export class LionSelectRich extends InteractionStateMixin(
     if (changedProps.has('disabled')) {
       // TODO: improve implementation -> property, seprate Mixin?
       if (this.disabled) {
-        this.__originalTabIndex = this.tabIndex;
-        this.tabIndex = -1;
+        this._invokerNode.tabIndex = -1;
       } else {
-        this.tabIndex = this.__originalTabIndex;
+        this._invokerNode.tabIndex = 0;
       }
     }
   }
@@ -272,12 +273,10 @@ export class LionSelectRich extends InteractionStateMixin(
     this.addEventListener('checked-changed', this.__boundOnOptionCheckedChanged);
 
     this.addEventListener('model-value-changed', this.__boundOnChildModelValueChanged);
-    this.addEventListener('keydown', this.__listboxOnKeyDown);
 
     this.addEventListener('keydown', this.__boundOnKeyDown);
 
     this.__setupOverlay();
-    this.__userTabIndex = this.tabIndex;
 
     this._invokerNode.id = `invoker-${this._inputId}`;
     this._invokerNode.setAttribute('aria-haspopup', 'listbox');
@@ -429,10 +428,10 @@ export class LionSelectRich extends InteractionStateMixin(
     super.firstUpdated();
     this.shadowRoot.querySelector('slot[name=input]').addEventListener('slotchange', () => {
       this._listboxNode.role = 'listbox';
-      this._listboxNode.tabIndex = -1;
       this._listboxNode.addEventListener('click', () => {
         this.opened = false;
       });
+      this._listboxNode.addEventListener('keydown', this.__listboxOnKeyDown);
     });
   }
 
@@ -447,34 +446,39 @@ export class LionSelectRich extends InteractionStateMixin(
     if (this.disabled) {
       return;
     }
-    if (this.interactionMode === 'mac' && !this.opened) {
-      return;
-    }
 
-    const keys = ['ArrowUp', 'ArrowDown', 'Home', 'End'];
     const { key } = ev;
-    if (!keys.includes(key)) {
-      return;
-    }
 
-    ev.preventDefault();
     switch (key) {
+      case 'Enter':
+      case ' ':
+        ev.preventDefault();
+        if (this.interactionMode === 'mac') {
+          this.checkedIndex = this.activeIndex;
+        }
+        this.opened = false;
+        break;
       case 'ArrowUp':
+        ev.preventDefault();
         this.activeIndex -= 1;
         break;
       case 'ArrowDown':
+        ev.preventDefault();
         this.activeIndex += 1;
         break;
       case 'Home':
+        ev.preventDefault();
         this.activeIndex = 0;
         break;
       case 'End':
+        ev.preventDefault();
         this.activeIndex = this.formElements.length - 1;
         break;
       /* no default */
     }
 
-    if (this.interactionMode === 'default') {
+    const keys = ['ArrowUp', 'ArrowDown', 'Home', 'End'];
+    if (keys.includes(key) && this.interactionMode === 'default') {
       this.checkedIndex = this.activeIndex;
     }
   }
@@ -486,18 +490,10 @@ export class LionSelectRich extends InteractionStateMixin(
 
     const { key } = ev;
     switch (key) {
-      case 'Enter':
-      case ' ':
-        ev.preventDefault();
-        if (this.interactionMode === 'mac') {
-          this.checkedIndex = this.activeIndex;
-        }
-        // toggle will be triggered by click handler
-        break;
       case 'Escape':
       case 'Tab':
+        ev.preventDefault();
         if (this.opened) {
-          ev.preventDefault();
           this.opened = false;
         }
         break;

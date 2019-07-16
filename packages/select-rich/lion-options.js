@@ -1,1 +1,3 @@
-customElements.define('lion-options', class extends HTMLElement {});
+import { LionOptions } from './src/LionOptions.js';
+
+customElements.define('lion-options', LionOptions);

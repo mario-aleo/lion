@@ -5,6 +5,13 @@ import '../lion-options.js';
 import '../lion-select-rich.js';
 
 describe('lion-select-rich', () => {
+  it('does not have a tabindex', async () => {
+    const el = await fixture(html`
+      <lion-select-rich></lion-select-rich>
+    `);
+    expect(el.hasAttribute('tabindex')).to.be.false;
+  });
+
   describe('Invoker', () => {
     it('generates an lion-select-invoker if no invoker is provided', async () => {
       const el = await fixture(html`
@@ -70,6 +77,23 @@ describe('lion-select-rich', () => {
       await aTimeout();
       expect(el.opened).to.be.false;
     });
+
+    it('will focus the listbox on open and invoker on close', async () => {
+      const el = await fixture(html`
+        <lion-select-rich>
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
+      `);
+      el.opened = true;
+      await el.updateComplete;
+      expect(document.activeElement === el._listboxNode).to.be.true;
+      expect(document.activeElement === el._invokerNode).to.be.false;
+
+      el.opened = false;
+      await el.updateComplete;
+      expect(document.activeElement === el._listboxNode).to.be.false;
+      expect(document.activeElement === el._invokerNode).to.be.true;
+    });
   });
 
   describe('interaction-mode', () => {
@@ -84,7 +108,9 @@ describe('lion-select-rich', () => {
   describe('Keyboard navigation', () => {
     it('opens the listbox with [Enter] key via click handler', async () => {
       const el = await fixture(html`
-        <lion-select-rich></lion-select-rich>
+        <lion-select-rich>
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       el._invokerNode.click();
       await el.updateComplete;
@@ -93,7 +119,9 @@ describe('lion-select-rich', () => {
 
     it('opens the listbox with [ ](Space) key via click handler', async () => {
       const el = await fixture(html`
-        <lion-select-rich></lion-select-rich>
+        <lion-select-rich>
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       el._invokerNode.click();
       await el.updateComplete;
@@ -102,7 +130,9 @@ describe('lion-select-rich', () => {
 
     it('closes the listbox with [Escape] key once opened', async () => {
       const el = await fixture(html`
-        <lion-select-rich opened></lion-select-rich>
+        <lion-select-rich opened>
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
       await el.updateComplete;
@@ -111,7 +141,9 @@ describe('lion-select-rich', () => {
 
     it('closes the listbox with [Tab] key once opened', async () => {
       const el = await fixture(html`
-        <lion-select-rich opened></lion-select-rich>
+        <lion-select-rich opened>
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
       await el.updateComplete;
@@ -122,7 +154,9 @@ describe('lion-select-rich', () => {
   describe('Mouse navigation', () => {
     it('opens the listbox via click on invoker', async () => {
       const el = await fixture(html`
-        <lion-select-rich></lion-select-rich>
+        <lion-select-rich>
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       expect(el.opened).to.be.false;
       el._invokerNode.click();
@@ -146,7 +180,9 @@ describe('lion-select-rich', () => {
   describe('Keyboard navigation Windows', () => {
     it('closes the listbox with [Enter] key via click handler once opened', async () => {
       const el = await fixture(html`
-        <lion-select-rich opened></lion-select-rich>
+        <lion-select-rich opened>
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       el._invokerNode.click();
       await el.updateComplete;
@@ -169,15 +205,16 @@ describe('lion-select-rich', () => {
       el.activeIndex = 1;
       expect(el.checkedIndex).to.equal(0);
 
-      el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-      el._invokerNode.click();
+      el._listboxNode.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
       expect(el.opened).to.be.false;
       expect(el.checkedIndex).to.equal(1);
     });
 
     it('opens the listbox with [ArrowUp] key', async () => {
       const el = await fixture(html`
-        <lion-select-rich interaction-mode="mac"></lion-select-rich>
+        <lion-select-rich interaction-mode="mac">
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
       await el.updateComplete;
@@ -186,7 +223,9 @@ describe('lion-select-rich', () => {
 
     it('opens the listbox with [ArrowDown] key', async () => {
       const el = await fixture(html`
-        <lion-select-rich interaction-mode="mac"></lion-select-rich>
+        <lion-select-rich interaction-mode="mac">
+          <lion-options slot="input"></lion-options>
+        </lion-select-rich>
       `);
       el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       await el.updateComplete;
