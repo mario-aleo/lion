@@ -1,18 +1,20 @@
 # Checkbox Group
 
-[//]: # (AUTO INSERT HEADER PREPUBLISH)
+[//]: # 'AUTO INSERT HEADER PREPUBLISH'
 
 `lion-checkbox-group` component is webcomponent that enhances the functionality of the native `<input type="checkbox">` element. Its purpose is to provide a way for users to check **multiple** options amongst a set of choices, or to function as a single toggle.
 
 You should use [lion-checkbox](../checkbox/)'s inside this element.
 
 ## Features
+
 Since it extends from [lion-fieldset](../fieldset/), it has all the features a fieldset has.
 
 ## How to use
 
 ### Installation
-```
+
+```sh
 npm i --save @lion/checkbox @lion/checkbox-group
 ```
 

@@ -1,18 +1,20 @@
 # Button
 
-[//]: # (AUTO INSERT HEADER PREPUBLISH)
+[//]: # 'AUTO INSERT HEADER PREPUBLISH'
 
 `lion-button` provides a component that is easily stylable and is accessible in all contexts.
 
 ## Features
 
 ### Disabled
+
 You can also set a button as disabled with the `disabled` property.
 
 ## How to use
 
 ### Installation
-```
+
+```sh
 npm i --save @lion/button
 ```
 

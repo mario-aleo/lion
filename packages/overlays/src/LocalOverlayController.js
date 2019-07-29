@@ -3,7 +3,7 @@ import { containFocus } from './utils/contain-focus.js';
 import { keyCodes } from './utils/key-codes.js';
 
 async function __preloadPopper() {
-  return import('popper.js/dist/popper.min.js');
+  return import('popper.js/dist/esm/popper.min.js');
 }
 export class LocalOverlayController {
   constructor(params = {}) {
@@ -313,7 +313,6 @@ export class LocalOverlayController {
   }
 
   // TODO: this method has to be removed when EventTarget polyfill is available on IE11
-  // issue: https://gitlab.ing.net/TheGuideComponents/lion-element/issues/12
   __fakeExtendsEventTarget() {
     const delegate = document.createDocumentFragment();
     ['addEventListener', 'dispatchEvent', 'removeEventListener'].forEach(funcName => {

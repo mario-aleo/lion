@@ -1,6 +1,6 @@
 # Fieldset
 
-[//]: # (AUTO INSERT HEADER PREPUBLISH)
+[//]: # 'AUTO INSERT HEADER PREPUBLISH'
 
 `lion-fieldset` groups multiple input fields or other fieldsets together.
 
@@ -22,7 +22,7 @@ Two specific types of fieldsets:
 ### Installation
 
 ```sh
-npm i --save @lion/fieldset;
+npm i --save @lion/fieldset
 ```
 
 ```js

@@ -1,6 +1,6 @@
 # Textarea
 
-[//]: # (AUTO INSERT HEADER PREPUBLISH)
+[//]: # 'AUTO INSERT HEADER PREPUBLISH'
 
 `lion-textarea` component is a webcomponent that enhances the functionality of the native `<input type="textarea">` element.
 Its purpose is to provide a way for users to write text that is multiple lines long.
@@ -24,8 +24,5 @@ import '@lion/textarea/lion-textarea.js';
 ### Example
 
 ```html
-<lion-textarea
-  label="Stops growing after 4 rows"
-  max-rows="4"
-></lion-textarea>
+<lion-textarea label="Stops growing after 4 rows" max-rows="4"></lion-textarea>
 ```

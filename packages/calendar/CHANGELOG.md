@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.47](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.46...@lion/calendar@0.1.47) (2019-07-29)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.46](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.45...@lion/calendar@0.1.46) (2019-07-26)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.45](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.44...@lion/calendar@0.1.45) (2019-07-25)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.44](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.43...@lion/calendar@0.1.44) (2019-07-24)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.43](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.42...@lion/calendar@0.1.43) (2019-07-24)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.42](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.41...@lion/calendar@0.1.42) (2019-07-23)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.41](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.40...@lion/calendar@0.1.41) (2019-07-23)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.40](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.39...@lion/calendar@0.1.40) (2019-07-23)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.39](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.38...@lion/calendar@0.1.39) (2019-07-22)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
+## [0.1.38](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.37...@lion/calendar@0.1.38) (2019-07-19)
+
+**Note:** Version bump only for package @lion/calendar
+
+
+
+
+
 ## [0.1.37](https://github.com/ing-bank/lion/compare/@lion/calendar@0.1.36...@lion/calendar@0.1.37) (2019-07-19)
 
 **Note:** Version bump only for package @lion/calendar

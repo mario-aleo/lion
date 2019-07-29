@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.43](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.42...@lion/textarea@0.1.43) (2019-07-29)
+
+
+### Bug Fixes
+
+* **textarea:** wait for textarea slot before init autoresize (fix [#203](https://github.com/ing-bank/lion/issues/203)) ([2f2a42a](https://github.com/ing-bank/lion/commit/2f2a42a))
+
+
+
+
+
+## [0.1.42](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.41...@lion/textarea@0.1.42) (2019-07-25)
+
+**Note:** Version bump only for package @lion/textarea
+
+
+
+
+
+## [0.1.41](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.40...@lion/textarea@0.1.41) (2019-07-24)
+
+**Note:** Version bump only for package @lion/textarea
+
+
+
+
+
+## [0.1.40](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.39...@lion/textarea@0.1.40) (2019-07-24)
+
+
+### Bug Fixes
+
+* **textarea:** disable user resize behavior (fix [#165](https://github.com/ing-bank/lion/issues/165)) ([9988e07](https://github.com/ing-bank/lion/commit/9988e07))
+
+
+
+
+
+## [0.1.39](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.38...@lion/textarea@0.1.39) (2019-07-23)
+
+**Note:** Version bump only for package @lion/textarea
+
+
+
+
+
+## [0.1.38](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.37...@lion/textarea@0.1.38) (2019-07-23)
+
+**Note:** Version bump only for package @lion/textarea
+
+
+
+
+
+## [0.1.37](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.36...@lion/textarea@0.1.37) (2019-07-23)
+
+**Note:** Version bump only for package @lion/textarea
+
+
+
+
+
+## [0.1.36](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.35...@lion/textarea@0.1.36) (2019-07-22)
+
+
+### Bug Fixes
+
+* **textarea:** calculate max-height based on empty state (fix [#184](https://github.com/ing-bank/lion/issues/184)) ([8853435](https://github.com/ing-bank/lion/commit/8853435))
+
+
+
+
+
+## [0.1.35](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.34...@lion/textarea@0.1.35) (2019-07-19)
+
+**Note:** Version bump only for package @lion/textarea
+
+
+
+
+
 ## [0.1.34](https://github.com/ing-bank/lion/compare/@lion/textarea@0.1.33...@lion/textarea@0.1.34) (2019-07-19)
 
 **Note:** Version bump only for package @lion/textarea

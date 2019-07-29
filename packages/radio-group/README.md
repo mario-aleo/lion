@@ -1,13 +1,15 @@
 # Radio-group
 
-[//]: # (AUTO INSERT HEADER PREPUBLISH)
+[//]: # 'AUTO INSERT HEADER PREPUBLISH'
 
 `lion-radio-group` component is webcomponent that enhances the functionality of the native `<input type="radio">` element. Its purpose is to provide a way for users to check a **single** option amongst a set of choices.
 
 You should use [lion-radio](../radio/)'s inside this element.
 
 ## Features
+
 Since it extends from [lion-fieldset](../fieldset/), it has all the features a fieldset has.
+
 - Get or set the checked value of the group:
   - modelValue (default) - `checkedValue()`
   - formattedValue - `formattedValue()`
@@ -16,7 +18,8 @@ Since it extends from [lion-fieldset](../fieldset/), it has all the features a f
 ## How to use
 
 ### Installation
-```
+
+```sh
 npm i --save @lion/radio @lion/radio-group
 ```
 

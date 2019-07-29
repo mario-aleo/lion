@@ -3,6 +3,106 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/ing-bank/lion/compare/@lion/button@0.3.0...@lion/button@0.3.1) (2019-07-29)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
+# [0.3.0](https://github.com/ing-bank/lion/compare/@lion/button@0.2.0...@lion/button@0.3.0) (2019-07-26)
+
+
+### Bug Fixes
+
+* **button:** click event fired twice in IE11 (fix [#179](https://github.com/ing-bank/lion/issues/179)) ([e269b5d](https://github.com/ing-bank/lion/commit/e269b5d))
+* **button:** prevent unnecessary keydown/keyup handlers ([06124e0](https://github.com/ing-bank/lion/commit/06124e0))
+* **button:** remove active when mouse/key up on other element (fix [#210](https://github.com/ing-bank/lion/issues/210)) ([f3303ae](https://github.com/ing-bank/lion/commit/f3303ae))
+
+
+### Features
+
+* **button:** move active to host for cross-browser support (fix [#188](https://github.com/ing-bank/lion/issues/188)) ([471d662](https://github.com/ing-bank/lion/commit/471d662))
+
+
+
+
+
+# [0.2.0](https://github.com/ing-bank/lion/compare/@lion/button@0.1.48...@lion/button@0.2.0) (2019-07-25)
+
+
+### Bug Fixes
+
+* **button:** typo in package description ([1d4378e](https://github.com/ing-bank/lion/commit/1d4378e))
+
+
+### Features
+
+* **button:** add template hooks for before/after default slot ([f478b98](https://github.com/ing-bank/lion/commit/f478b98))
+* **button:** reduce to minimal css ([d4299de](https://github.com/ing-bank/lion/commit/d4299de))
+* **button:** use DisabledWithTabIndexMixin ([732411c](https://github.com/ing-bank/lion/commit/732411c))
+
+
+
+
+
+## [0.1.48](https://github.com/ing-bank/lion/compare/@lion/button@0.1.47...@lion/button@0.1.48) (2019-07-24)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
+## [0.1.47](https://github.com/ing-bank/lion/compare/@lion/button@0.1.46...@lion/button@0.1.47) (2019-07-24)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
+## [0.1.46](https://github.com/ing-bank/lion/compare/@lion/button@0.1.45...@lion/button@0.1.46) (2019-07-23)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
+## [0.1.45](https://github.com/ing-bank/lion/compare/@lion/button@0.1.44...@lion/button@0.1.45) (2019-07-23)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
+## [0.1.44](https://github.com/ing-bank/lion/compare/@lion/button@0.1.43...@lion/button@0.1.44) (2019-07-23)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
+## [0.1.43](https://github.com/ing-bank/lion/compare/@lion/button@0.1.42...@lion/button@0.1.43) (2019-07-22)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
+## [0.1.42](https://github.com/ing-bank/lion/compare/@lion/button@0.1.41...@lion/button@0.1.42) (2019-07-19)
+
+**Note:** Version bump only for package @lion/button
+
+
+
+
+
 ## [0.1.41](https://github.com/ing-bank/lion/compare/@lion/button@0.1.40...@lion/button@0.1.41) (2019-07-19)
 
 **Note:** Version bump only for package @lion/button

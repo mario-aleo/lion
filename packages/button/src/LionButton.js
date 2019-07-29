@@ -1,19 +1,17 @@
-import { css, html, DelegateMixin, SlotMixin } from '@lion/core';
+import { css, html, DelegateMixin, SlotMixin, DisabledWithTabIndexMixin } from '@lion/core';
 import { LionLitElement } from '@lion/core/src/LionLitElement.js';
 
-export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
+export class LionButton extends DisabledWithTabIndexMixin(
+  DelegateMixin(SlotMixin(LionLitElement)),
+) {
   static get properties() {
     return {
-      disabled: {
-        type: Boolean,
-        reflect: true,
-      },
       role: {
         type: String,
         reflect: true,
       },
-      tabindex: {
-        type: Number,
+      active: {
+        type: Boolean,
         reflect: true,
       },
     };
@@ -22,11 +20,23 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
   render() {
     return html`
       <div class="btn">
+        ${this._renderBefore()}
         <slot></slot>
+        ${this._renderAfter()}
         <slot name="_button"></slot>
-        <div class="click-area" @click="${this.__clickDelegationHandler}"></div>
+        <div class="click-area"></div>
       </div>
     `;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  _renderBefore() {
+    return html``;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  _renderAfter() {
+    return html``;
   }
 
   static get styles() {
@@ -36,22 +46,20 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
           display: inline-block;
           padding-top: 2px;
           padding-bottom: 2px;
-          height: 40px; /* src = https://www.smashingmagazine.com/2012/02/finger-friendly-design-ideal-mobile-touchscreen-target-sizes/ */
+          min-height: 40px; /* src = https://www.smashingmagazine.com/2012/02/finger-friendly-design-ideal-mobile-touchscreen-target-sizes/ */
           outline: 0;
           background-color: transparent;
           box-sizing: border-box;
         }
 
         .btn {
-          height: 24px;
+          min-height: 24px;
           display: flex;
           align-items: center;
           position: relative;
-          border: 1px solid black;
-          border-radius: 8px;
-          background: whitesmoke;
-          color: black;
+          background: #eee; /* minimal styling to make it recognizable as btn */
           padding: 7px 15px;
+          outline: none; /* focus style handled below, else it follows boundaries of click-area */
         }
 
         :host .btn ::slotted(button) {
@@ -69,27 +77,20 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
           padding: 0;
         }
 
-        :host(:focus) {
-          outline: none;
-        }
-
         :host(:focus) .btn {
-          border-color: lightblue;
-          box-shadow: 0 0 8px lightblue, 0 0 0 1px lightblue;
+          /* if you extend, please overwrite */
+          outline: 2px solid #bde4ff;
         }
 
         :host(:hover) .btn {
-          background: black;
-          color: whitesmoke;
+          /* if you extend, please overwrite */
+          background: #f4f6f7;
         }
 
-        :host(:hover) .btn ::slotted(lion-icon) {
-          fill: whitesmoke;
-        }
-
-        :host(:active) .btn,
-        .btn[active] {
-          background: grey;
+        :host(:active) .btn, /* keep native :active to render quickly where possible */
+        :host([active]) .btn /* use custom [active] to fix IE11 */ {
+          /* if you extend, please overwrite */
+          background: gray;
         }
 
         :host([disabled]) {
@@ -97,20 +98,13 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
         }
 
         :host([disabled]) .btn {
+          /* if you extend, please overwrite */
           background: lightgray;
-          color: gray;
-          fill: gray;
-          border-color: gray;
+          color: #adadad;
+          fill: #adadad;
         }
       `,
     ];
-  }
-
-  _requestUpdate(name, oldValue) {
-    super._requestUpdate(name, oldValue);
-    if (name === 'disabled') {
-      this.__onDisabledChanged(oldValue);
-    }
   }
 
   get delegations() {
@@ -137,34 +131,37 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
 
   constructor() {
     super();
-    this.disabled = false;
     this.role = 'button';
-    this.tabindex = 0;
+    this.active = false;
+    this.__setupDelegationInConstructor();
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.__setupDelegation();
+    this.__setupEvents();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.__teardownDelegation();
+    this.__teardownEvents();
   }
 
   _redispatchClickEvent(oldEvent) {
     // replacing `MouseEvent` with `oldEvent.constructor` breaks IE
     const newEvent = new MouseEvent(oldEvent.type, oldEvent);
+    newEvent.__isRedispatchedOnNativeButton = true;
     this.__enforceHostEventTarget(newEvent);
     this.$$slot('_button').dispatchEvent(newEvent);
   }
 
   /**
-   * Prevent click on the fake element and cause click on the native button.
+   * Prevent normal click and redispatch click on the native button unless already redispatched.
    */
   __clickDelegationHandler(e) {
-    e.stopPropagation();
-    this._redispatchClickEvent(e);
+    if (!e.__isRedispatchedOnNativeButton) {
+      e.stopImmediatePropagation();
+      this._redispatchClickEvent(e);
+    }
   }
 
   __enforceHostEventTarget(event) {
@@ -177,39 +174,56 @@ export class LionButton extends DelegateMixin(SlotMixin(LionLitElement)) {
     }
   }
 
-  __setupDelegation() {
-    this.addEventListener('keydown', this.__keydownDelegationHandler);
-    this.addEventListener('keyup', this.__keyupDelegationHandler);
+  __setupDelegationInConstructor() {
+    // do not move to connectedCallback, otherwise IE11 breaks
+    // more info: https://github.com/ing-bank/lion/issues/179#issuecomment-511763835
+    this.addEventListener('click', this.__clickDelegationHandler, true);
   }
 
-  __teardownDelegation() {
-    this.removeEventListener('keydown', this.__keydownDelegationHandler);
-    this.removeEventListener('keyup', this.__keyupDelegationHandler);
+  __setupEvents() {
+    this.addEventListener('mousedown', this.__mousedownHandler);
+    this.addEventListener('keydown', this.__keydownHandler);
+    this.addEventListener('keyup', this.__keyupHandler);
   }
 
-  __keydownDelegationHandler(e) {
-    if (e.keyCode === 32 /* space */ || e.keyCode === 13 /* enter */) {
-      e.preventDefault();
-      this.shadowRoot.querySelector('.btn').setAttribute('active', '');
+  __teardownEvents() {
+    this.removeEventListener('mousedown', this.__mousedownHandler);
+    this.removeEventListener('keydown', this.__keydownHandler);
+    this.removeEventListener('keyup', this.__keyupHandler);
+  }
+
+  __mousedownHandler() {
+    this.active = true;
+    const mouseupHandler = () => {
+      this.active = false;
+      document.removeEventListener('mouseup', mouseupHandler);
+    };
+    document.addEventListener('mouseup', mouseupHandler);
+  }
+
+  __keydownHandler(e) {
+    if (this.active || !this.__isKeyboardClickEvent(e)) {
+      return;
     }
+    this.active = true;
+    const keyupHandler = keyupEvent => {
+      if (this.__isKeyboardClickEvent(keyupEvent)) {
+        this.active = false;
+        document.removeEventListener('keyup', keyupHandler, true);
+      }
+    };
+    document.addEventListener('keyup', keyupHandler, true);
   }
 
-  __keyupDelegationHandler(e) {
-    // Makes the real button the trigger in forms (will submit form, as opposed to paper-button)
-    // and make click handlers on button work on space and enter
-    if (e.keyCode === 32 /* space */ || e.keyCode === 13 /* enter */) {
-      e.preventDefault();
-      this.shadowRoot.querySelector('.btn').removeAttribute('active');
+  __keyupHandler(e) {
+    if (this.__isKeyboardClickEvent(e)) {
+      // redispatch click
       this.shadowRoot.querySelector('.click-area').click();
     }
   }
 
-  __onDisabledChanged() {
-    if (this.disabled) {
-      this.__originalTabIndex = this.tabindex;
-      this.tabindex = -1;
-    } else {
-      this.tabindex = this.__originalTabIndex;
-    }
+  // eslint-disable-next-line class-methods-use-this
+  __isKeyboardClickEvent(e) {
+    return e.keyCode === 32 /* space */ || e.keyCode === 13 /* enter */;
   }
 }

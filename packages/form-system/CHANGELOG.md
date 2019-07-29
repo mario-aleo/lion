@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.48](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.47...@lion/form-system@0.0.48) (2019-07-29)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.47](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.46...@lion/form-system@0.0.47) (2019-07-25)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.46](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.45...@lion/form-system@0.0.46) (2019-07-24)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.45](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.44...@lion/form-system@0.0.45) (2019-07-24)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.44](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.43...@lion/form-system@0.0.44) (2019-07-23)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.43](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.42...@lion/form-system@0.0.43) (2019-07-23)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.42](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.41...@lion/form-system@0.0.42) (2019-07-23)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.41](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.40...@lion/form-system@0.0.41) (2019-07-22)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
+## [0.0.40](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.39...@lion/form-system@0.0.40) (2019-07-19)
+
+**Note:** Version bump only for package @lion/form-system
+
+
+
+
+
 ## [0.0.39](https://github.com/ing-bank/lion/compare/@lion/form-system@0.0.38...@lion/form-system@0.0.39) (2019-07-19)
 
 **Note:** Version bump only for package @lion/form-system

@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.27](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.26...@lion/tooltip@0.2.27) (2019-07-29)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.26](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.25...@lion/tooltip@0.2.26) (2019-07-26)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.25](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.24...@lion/tooltip@0.2.25) (2019-07-25)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.24](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.23...@lion/tooltip@0.2.24) (2019-07-24)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.23](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.22...@lion/tooltip@0.2.23) (2019-07-24)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.22](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.21...@lion/tooltip@0.2.22) (2019-07-23)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.21](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.20...@lion/tooltip@0.2.21) (2019-07-23)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.20](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.19...@lion/tooltip@0.2.20) (2019-07-23)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.19](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.18...@lion/tooltip@0.2.19) (2019-07-23)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.18](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.17...@lion/tooltip@0.2.18) (2019-07-22)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
+## [0.2.17](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.16...@lion/tooltip@0.2.17) (2019-07-19)
+
+**Note:** Version bump only for package @lion/tooltip
+
+
+
+
+
 ## [0.2.16](https://github.com/ing-bank/lion/compare/@lion/tooltip@0.2.15...@lion/tooltip@0.2.16) (2019-07-19)
 
 **Note:** Version bump only for package @lion/tooltip
